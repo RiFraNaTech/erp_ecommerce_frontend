@@ -3,18 +3,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { loginUser } from "./helpers/loginUser";
+import { setUserToken } from "../../helpers/session.storage";
 
 const Login = ({ setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
-    //e.preventDefault();
     const token = await loginUser({
       username,
       password,
     });
-    console.log(token);
+    setUserToken(token.token);
     setToken(token);
   };
 
@@ -52,30 +52,30 @@ const Login = ({ setToken }) => {
                       </h5>
 
                       <div className="form-outline mb-4">
-                        <input
-                          type="email"
-                          id="form2Example17"
-                          value={username}
-                          className="form-control form-control-lg"
-                          placeholder="Ingrese el usuario"
-                          onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <label className="form-label" for="form2Example17">
+                        <label className="form-label">
+                          <input
+                            type="email"
+                            id="form2Example17"
+                            value={username}
+                            className="form-control form-control-lg"
+                            placeholder="Ingrese el usuario"
+                            onChange={(e) => setUsername(e.target.value)}
+                          />
                           Username
                         </label>
                       </div>
 
                       <div className="form-outline mb-4">
-                        <input
-                          type="password"
-                          id="form2Example27"
-                          value={password}
-                          className="form-control form-control-lg"
-                          placeholder="Ingrese la contraseña"
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <label className="form-label" for="form2Example27">
+                        <label className="form-label">
                           Contraseña
+                          <input
+                            type="password"
+                            id="form2Example27"
+                            value={password}
+                            className="form-control form-control-lg"
+                            placeholder="Ingrese la contraseña"
+                            onChange={(e) => setPassword(e.target.value)}
+                          />
                         </label>
                       </div>
 
